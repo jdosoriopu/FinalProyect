@@ -1,0 +1,40 @@
+compilationUnit(program) ::=  <<
+<importDeclaration(program.importDeclaration)>
+
+<packageDeclaration(program.packageDeclaration)>
+
+<typeDeclaration(program.typeDeclaration)>
+
+
+
+>>
+
+packageDeclaration(pd)   ::= "namespace <pd.qualifiedName.text>"
+importDeclaration(ids) ::= <<
+<ids:{ import | using <import.qualifiedName.text><test(import)>}; separator="\n">
+>>
+
+test(i) ::= <<
+<if (i.ContainsFinalImport)>.*;<else>;<endif>
+>>
+
+
+typeDeclaration(list) ::= <<
+<list:{ e | <classOrInterfaceModifier(e.classOrInterfaceModifier)> <classDeclaration(e.classDeclaration)>}; separator=" ">
+>>
+
+
+classOrInterfaceModifier(list) ::= <<
+<list:{ e | <e.text>}; separator=" ">
+>>
+
+classDeclaration(e) ::= <<
+class <e.Identifier> <e.typeParameters><if (e.InheritedClass || e.ImplementedClass)>: <e.type.text><typeList(e.typeList)> <endif>
+>>
+
+typeList(list) ::= <<
+,<list:{ e | <e.text>}; separator=",">
+>>
+
+
+

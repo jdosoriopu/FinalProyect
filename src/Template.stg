@@ -8,7 +8,6 @@ compilationUnit(program) ::=  <<
 
 
 >>
-
 packageDeclaration(pd)   ::= "namespace <pd.qualifiedName.text>"
 importDeclaration(ids) ::= <<
 <ids:{ import | using <import.qualifiedName.text><test(import)>}; separator="\n">
